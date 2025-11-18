@@ -1,59 +1,104 @@
-$(document).ready(function(){
-	$(window).scroll(function(){
-		if (this.scrollY > 20 ){
-			$('.navbar').addClass("sticky");
-		}else{
-			$('.navbar').removeClass("sticky");
-		}
-		if (this.scrollY > 500) {
-			$('.scroll-up-btn').addClass("show");
-		}else{
-			$('.scroll-up-btn').removeClass("show");
-		}
-	});
+document.addEventListener("DOMContentLoaded", function() {
+    // Sticky Navbar & Scroll-Up Button
+    const navbar = document.querySelector('.navbar');
+    const scrollUpBtn = document.querySelector('.scroll-up-btn');
 
-	// Slide up script
-	$('.scroll-up-btn').click(function(){
-		$('html').animate({scrollTop:0});
-	});
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) {
+            navbar.classList.add('sticky');
+        } else {
+            navbar.classList.remove('sticky');
+        }
 
-	//toggle menu/navbar script
+        if (window.scrollY > 500) {
+            scrollUpBtn.classList.add('show');
+        } else {
+            scrollUpBtn.classList.remove('show');
+        }
+    });
 
-	$('.menu-btn').click(function(){
-		$('.navbar .menu').toggleClass("active");
-		$('.menu-btn i').toggleClass("active");
-	});
+    // Scroll-Up Button Click
+    scrollUpBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
-	// Typing annimation script
+    // Toggle Menu/Navbar Script
+    const menuBtn = document.querySelector('.menu-btn');
+    const menu = document.querySelector('.navbar .menu');
+    const menuIcon = document.querySelector('.menu-btn i');
 
-	var typed = new Typed(".typing", {
-		strings : ["Web Developer", "Web Designer"],
-		typeSpeed: 100,
-		backSpeed: 50,
-		loop: true
-	});
+    menuBtn.addEventListener('click', () => {
+        menu.classList.toggle('active');
+        menuIcon.classList.toggle('active');
+    });
 
+    // Typed.js Animation
+    const typed = new Typed(".typing", {
+        strings: ["Front-End Developer", "Web Designer", "Freelancer"],
+        typeSpeed: 100,
+        backSpeed: 50,
+        loop: true
+    });
 
-	// owl-carousel script
+    // Owl Carousel (keep jQuery dependency for this)
+    $('.carousel').owlCarousel({
+        margin: 20,
+        loop: true,
+        autoplay: true,
+        autoplayTimeout: 3000,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1,
+                nav: false
+            },
+            600: {
+                items: 2,
+                nav: false
+            },
+            1000: {
+                items: 3,
+                nav: false
+            }
+        }
+    });
 
-	$('.carousel').owlCarousel({
-		margin: 20,
-		loop: true,
-		autoplayTimeOut: 2000,
-		autoplayHoverPause: true,
-		responsive: {
-			0:{
-				item: 1,
-				nav: false
-			},
-			600:{
-				item: 2,
-				nav: false
-			},
-			1000	:{
-				item: 3,
-				nav: false
-			}
-		}
-	});
+    // Optional: Active link highlighting using Intersection Observer
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.menu li a');
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                const activeLink = document.querySelector(`.menu li a[href="#${entry.target.id}"]`);
+                if (activeLink) activeLink.classList.add('active');
+            }
+        });
+    }, { threshold: 0.6 });
+
+    sections.forEach(section => observer.observe(section));
+
+    // Animate skill bars when scrolling into view
+    const skillSection = document.querySelector(".column.right");
+    const skillLines = document.querySelectorAll(".line");
+
+    function animateSkills() {
+        const sectionPos = skillSection.getBoundingClientRect().top;
+        const screenPos = window.innerHeight - 150; // trigger earlier
+
+        if (sectionPos < screenPos) {
+            skillLines.forEach(line => {
+                const percent = line.parentElement.querySelector(".info span:last-child").textContent;
+                line.style.setProperty("--percent", percent);
+                line.classList.add("active");
+            });
+            // Remove event listener after animation
+            window.removeEventListener("scroll", animateSkills);
+        }
+    }
+
+    window.addEventListener("scroll", animateSkills);
+
+	
 });
