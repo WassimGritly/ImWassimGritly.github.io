@@ -639,7 +639,7 @@ section .title{
     width: 0%;
     left: 0;
     top: 0;
-    background: #1aa7ec; /* Your theme blue */
+    background: #1aa7ec;
     border-radius: 4px;
     transition: width 1.3s ease-in-out;
 }
@@ -796,4 +796,16 @@ footer span a:hover{
 	.home .home-content .text-3{
 		font-size: 25px;
 	}
+}
+
+@media (max-width: 600px) {
+  .hero-buttons {
+    flex-direction: column;
+    gap: 12px; /* space between buttons */
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+    text-align: center;
+  }
 }
