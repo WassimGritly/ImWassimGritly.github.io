@@ -809,3 +809,19 @@ footer span a:hover{
     text-align: center;
   }
 }
+
+@media (max-width: 768px) {
+
+    .services .serv-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .services .serv-content .card {
+        width: 90%;
+        max-width: 350px;
+        margin: 0 auto;
+    }
+}
