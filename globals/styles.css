@@ -16,7 +16,7 @@ html{
 	margin: auto;
 }
 
-/* navbar style */
+/* Navbar style */
 
 .navbar{
 	position: fixed;
@@ -669,11 +669,7 @@ footer span a:hover{
 	text-decoration: underline;
 }
 
-
-
-
-
-/* responsive media query start */ 
+/* Responsive media query start */ 
 
 @media (max-width : 1300px){
 	.home .max-width{
@@ -796,32 +792,4 @@ footer span a:hover{
 	.home .home-content .text-3{
 		font-size: 25px;
 	}
-}
-
-@media (max-width: 600px) {
-  .hero-buttons {
-    flex-direction: column;
-    gap: 12px; /* space between buttons */
-  }
-
-  .hero-buttons .btn {
-    width: 100%;
-    text-align: center;
-  }
-}
-
-@media (max-width: 768px) {
-
-    .services .serv-content {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
-    }
-
-    .services .serv-content .card {
-        width: 90%;
-        max-width: 350px;
-        margin: 0 auto;
-    }
 }
